@@ -1,0 +1,269 @@
+
+
+body {
+  font-family: 'Questrial', sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+
+.navbar {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+
+.home {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+.dentista img {
+  display: block; /* tira espaço de linha */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+}
+
+
+.custom-navbar {
+  background: linear-gradient(to right, #0a2c78, #0f3fa3, #1658c1);
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
+}
+
+
+.custom-navbar .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+.custom-navbar .nav-link:hover {
+  color: #b3d9ff !important;
+}
+
+
+.navbar-brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+
+.navbar.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.login-btn {
+  border: none;
+  background-color: #ffffff;
+  color: #0a2c78;
+  font-weight: 600;
+  border-radius: 9999px; /* total round */
+  padding: 0.6rem 1.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+
+.login-btn:hover {
+  background-color: #e8f0ff;
+  color: #08306b;
+  transform: translateY(-2px);
+}
+
+
+
+
+
+section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+
+
+
+.sobre img {
+  border-radius: 1rem;
+  transition: transform 0.4s ease;
+}
+
+
+.sobre img:hover {
+  transform: scale(1.03);
+}
+
+
+
+
+.especialidades {
+  background-color: #f0f7ff;
+  border-radius: 1rem;
+  box-shadow: inset 0 0 20px rgba(0, 0, 50, 0.05);
+}
+
+
+.especialidades img {
+  border-radius: 1rem;
+  transition: transform 0.4s ease;
+}
+
+
+.especialidades img:hover {
+  transform: scale(1.03);
+}
+
+
+
+
+.saude-dental {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 50, 0.05);
+}
+
+
+
+
+.avaliacoes {
+  background-color: #f0f7ff;
+  text-align: center;
+  border-radius: 1rem;
+  padding: 5rem 2rem;
+}
+
+
+.avaliacoes h2 {
+  color: #0a2c78;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+
+#btn-avaliar-google {
+  background-color: #1658c1;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 50, 0.2);
+  transition: all 0.3s ease;
+}
+
+
+#btn-avaliar-google:hover {
+  background-color: #0f3fa3;
+  transform: scale(1.05);
+}
+
+
+.mapa {
+  background-color: #ffffff;
+  text-align: center;
+  width: 100%;
+  height:50%;
+  border-radius: 20px;
+}
+
+
+.mapa-container {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow:  4px 12px rgba(0, 0, 50, 0.1);
+}
+
+
+.footer {
+  background-color: #0a2c78;
+  color: #ffffff;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+
+.footer h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  border-bottom: 2px solid #b3d9ff;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+.footer a {
+  color: #e5f1ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+
+.footer a:hover {
+  color: #ffffff;
+}
+
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 2rem;
+}
+
+
+.whatsapp-button {
+  display: flex;
+  align-items: center;
+  background-color: #25d366;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.75rem 1.4rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+
+.whatsapp-button img {
+  width: 24px;
+  margin-right: 0.5rem;
+}
+
+
+.whatsapp-button:hover {
+  background-color: #1ebc57;
+  transform: translateY(-3px);
+}
+
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+
+  .sobre img, .especialidades img {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
