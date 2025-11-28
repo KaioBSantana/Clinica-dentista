@@ -1,0 +1,219 @@
+/* =============================== CONFIG FIREBASE =============================== */
+const API_URL = "https://firestore.googleapis.com/v1/projects/tcc-dentista/databases/(default)/documents";
+
+let secaoAtual = "consultas";
+let idEditando = null;
+
+/* =============================== TROCAR DE SEÇÃO =============================== */
+function mostrarSecao(secao) {
+  document.getElementById("consultas").classList.add("hidden");
+  document.getElementById("dentistas").classList.add("hidden");
+  document.getElementById("usuarios").classList.add("hidden");
+
+  document.getElementById(secao).classList.remove("hidden");
+  secaoAtual = secao;
+
+  carregarDados();
+}
+
+/* =============================== ABRIR MODAL DINÂMICO =============================== */
+function abrirModal(tipo) {
+  idEditando = null;
+
+  const modal = document.getElementById("modal");
+  const titulo = document.getElementById("modalTitulo");
+  const form = document.getElementById("formModal");
+
+  modal.classList.remove("hidden");
+
+  // === Formulário baseado na seção ===
+  if (tipo === "consulta") {
+    secaoAtual = "consultas";
+    titulo.textContent = "Cadastrar Consulta";
+    form.innerHTML = `
+      <input id="paciente" placeholder="Nome do Paciente" class="campo w-full border rounded px-3 py-2">
+      <input id="dentista" placeholder="Dentista" class="campo w-full border rounded px-3 py-2">
+      <input type="text" id="procedimento" class="campo w-full border rounded px-3 py-2">
+      <input type="date" id="data" class="campo w-full border rounded px-3 py-2">
+       <input type="time" id="hora" class="campo w-full border rounded px-3 py-2">
+    `;
+  }
+
+  if (tipo === "dentista") {
+    secaoAtual = "dentistas";
+    titulo.textContent = "Cadastrar Dentista";
+    form.innerHTML = `
+      <input id="nome" placeholder="Nome" class="campo w-full border rounded px-3 py-2">
+      <input id="especialidade" placeholder="Especialidade" class="campo w-full border rounded px-3 py-2">
+      <input id="cro" placeholder="CRO" class="campo w-full border rounded px-3 py-2">
+    `;
+  }
+
+  if (tipo === "usuario") {
+    secaoAtual = "usuarios";
+    titulo.textContent = "Cadastrar Usuário";
+    form.innerHTML = `
+      <input id="nome" placeholder="Nome completo" class="campo w-full border rounded px-3 py-2">
+      <input id="email" placeholder="Email" class="campo w-full border rounded px-3 py-2">
+      <input id="cpf" placeholder="CPF" class="campo w-full border rounded px-3 py-2">
+      <input id="telefone" placeholder="Telefone" class="campo w-full border rounded px-3 py-2">
+    `;
+  }
+}
+
+/* =============================== FECHAR MODAL =============================== */
+function fecharModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+/* =============================== SALVAR (CREATE / UPDATE) =============================== */
+async function salvar() {
+  let dados = {};
+
+  if (secaoAtual === "consultas") {
+    
+    dados = {
+      paciente: { stringValue: document.getElementById("paciente").value },
+      dentista: { stringValue: document.getElementById("dentista").value },
+      procedimento: { stringValue: document.getElementById("procedimento").value },
+      data: { stringValue: document.getElementById("data").value },
+      hora: { stringValue: document.getElementById("hora").value },
+        
+    };
+   
+  }
+
+  if (secaoAtual === "dentistas") {
+    dados = {
+      nome: { stringValue: document.getElementById("nome").value },
+      especialidade: { stringValue: document.getElementById("especialidade").value },
+      cro: { stringValue: document.getElementById("cro").value },
+    };
+  }
+
+  if (secaoAtual === "usuarios") {
+    dados = {
+      nome: { stringValue: document.getElementById("nome").value },
+      email: { stringValue: document.getElementById("email").value },
+      cpf: { stringValue: document.getElementById("cpf").value },
+      telefone: { stringValue: document.getElementById("telefone").value },
+    };
+  }
+
+  // update ou create
+  const method = idEditando ? "PATCH" : "POST";
+  const url = idEditando
+    ? `${API_URL}/${secaoAtual}/${idEditando}`
+    : `${API_URL}/${secaoAtual}`;
+
+  await fetch(url, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fields: dados }),
+  });
+
+  fecharModal();
+  carregarDados();
+}
+
+/* =============================== LISTAR DA TABELA =============================== */
+async function carregarDados() {
+  const tabela =
+    secaoAtual === "consultas"
+      ? document.getElementById("tabelaConsultas")
+      : secaoAtual === "dentistas"
+      ? document.getElementById("tabelaDentistas")
+      : document.getElementById("tabelaUsuarios");
+
+  tabela.innerHTML = "<tr><td colspan='5'>Carregando...</td></tr>";
+
+  const res = await fetch(`${API_URL}/${secaoAtual}`);
+  const data = await res.json();
+
+  if (!data.documents) {
+    tabela.innerHTML = "<tr><td colspan='5'>Nenhum registro encontrado.</td></tr>";
+    return;
+  }
+
+  tabela.innerHTML = "";
+
+  data.documents.forEach((doc) => {
+    const id = doc.name.split("/").pop();
+    const d = doc.fields;
+
+    if (secaoAtual === "consultas") {
+      tabela.innerHTML += `
+        <tr>
+          <td class="py-3 px-4">${d.paciente.stringValue}</td>
+          <td class="py-3 px-4">${d.dentista.stringValue}</td>
+          <td class="py-3 px-4">${d.procedimento?.stringValue}</td>
+          <td class="py-3 px-4">${d.data.stringValue}</td>
+          <td class="py-3 px-4">${d.hora.stringValue}</td>
+          <td class="py-3 text-center">
+            <button onclick="editar('${id}')" class="text-blue-700 font-semibold">Editar</button> |
+            <button onclick="excluir('${id}')" class="text-red-600 font-semibold">Excluir</button>
+          </td>
+        </tr>`;
+    }
+
+    if (secaoAtual === "dentistas") {
+      tabela.innerHTML += `
+        <tr>
+          <td class="py-3 px-4">${d.nome.stringValue}</td>
+          <td class="py-3 px-4">${d.especialidade.stringValue}</td>
+          <td class="py-3 px-4">${d.cro.stringValue}</td>
+          <td class="py-3 text-center">
+            <button onclick="editar('${id}')" class="text-blue-700 font-semibold">Editar</button> |
+            <button onclick="excluir('${id}')" class="text-red-600 font-semibold">Excluir</button>
+          </td>
+        </tr>`;
+    }
+
+    if (secaoAtual === "usuarios") {
+      tabela.innerHTML += `
+        <tr>
+          <td class="py-3 px-4">${d.nome.stringValue}</td>
+          <td class="py-3 px-4">${d.email.stringValue}</td>
+          <td class="py-3 px-4">${d.cpf.stringValue}</td>
+          <td class="py-3 px-4">${d.telefone.stringValue}</td>
+          <td class="py-3 text-center">
+            <button onclick="editar('${id}')" class="text-blue-700 font-semibold">Editar</button> |
+            <button onclick="excluir('${id}')" class="text-red-600 font-semibold">Excluir</button>
+          </td>
+        </tr>`;
+    }
+  });
+}
+
+/* =============================== EXCLUIR =============================== */
+async function excluir(id) {
+  await fetch(`${API_URL}/${secaoAtual}/${id}`, { method: "DELETE" });
+  carregarDados();
+}
+
+/* =============================== EDITAR =============================== */
+async function editar(id) {
+  idEditando = id;
+
+  const res = await fetch(`${API_URL}/${secaoAtual}/${id}`);
+  const doc = await res.json();
+  const d = doc.fields;
+
+  abrirModal(secaoAtual.slice(0, -1)); // remove o plural para abrir corretamente
+
+  for (const campo in d) {
+    if (document.getElementById(campo)) {
+      document.getElementById(campo).value = d[campo].stringValue;
+    }
+  }
+}
+
+/* =============================== LOGOUT =============================== */
+function logout() {
+  localStorage.removeItem("usuarioLogado");
+  window.location.href = "login.html";
+}
+
+/* =============================== CARREGAMENTO INICIAL =============================== */
+mostrarSecao("consultas");
+ 
