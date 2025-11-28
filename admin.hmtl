@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo - Clínica Confidente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="admin.js"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- NAVBAR SUPERIOR -->
+  <nav class="bg-blue-800 text-white px-6 py-4 flex justify-between items-center shadow">
+    <h1 class="text-xl font-semibold">Painel Administrativo</h1>
+    <div id="adminInfo" class="flex items-center gap-4">
+      <span id="adminName" class="font-medium">Olá, Admin</span>
+      <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold">Sair</button>
+    </div>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="flex min-h-screen">
+    <!-- MENU LATERAL -->
+    <aside class="w-64 bg-white shadow-md p-6 space-y-4">
+      <h2 class="font-semibold text-gray-700 mb-4">Menu</h2>
+      <button onclick="mostrarSecao('consultas')"
+        class="w-full text-left text-blue-700 font-medium hover:bg-blue-100 px-3 py-2 rounded-lg">Consultas</button>
+      <button onclick="mostrarSecao('dentistas')"
+        class="w-full text-left text-blue-700 font-medium hover:bg-blue-100 px-3 py-2 rounded-lg">Dentistas</button>
+      <button onclick="mostrarSecao('usuarios')"
+        class="w-full text-left text-blue-700 font-medium hover:bg-blue-100 px-3 py-2 rounded-lg">Usuários</button>
+    </aside>
+
+    <main class="flex-1 p-8">
+      <section id="consultas" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-blue-800">Gerenciar Consultas</h2>
+          <button onclick="abrirModal('consulta')"
+            class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg">+ Nova Consulta</button>
+        </div>
+
+        <table class="w-full bg-white rounded-xl shadow overflow-hidden">
+          <thead class="bg-blue-700 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Paciente</th>
+              <th class="py-3 px-4 text-left">Dentista</th>
+              <th class="py-3 px-4 text-left">Procedimento</th>
+              <th class="py-3 px-4 text-left">Data</th>
+              <th class="py-3 px-4 text-left">Horário</th>
+              <th class="py-3 px-4 text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaConsultas" class="divide-y divide-gray-200">
+            <!-- Dados gerados pelo JS -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- DENTISTAS -->
+      <section id="dentistas" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-blue-800">Gerenciar Dentistas</h2>
+          <button onclick="abrirModal('dentista')"
+            class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg">+ Novo Dentista</button>
+        </div>
+
+        <table class="w-full bg-white rounded-xl shadow overflow-hidden">
+          <thead class="bg-blue-700 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Nome</th>
+              <th class="py-3 px-4 text-left">Especialidade</th>
+              <th class="py-3 px-4 text-left">CRO</th>
+              <th class="py-3 px-4 text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaDentistas" class="divide-y divide-gray-200">
+            <!-- Dados gerados pelo JS -->
+          </tbody>
+        </table>
+      </section>
+      <section id="usuarios" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-blue-800">Gerenciar Usuários</h2>
+          <button onclick="abrirModal('usuario')"
+            class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg">+ Novo Usuário</button>
+        </div>
+
+        <table class="w-full bg-white rounded-xl shadow overflow-hidden">
+          <thead class="bg-blue-700 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Nome</th>
+              <th class="py-3 px-4 text-left">Email</th>
+              <th class="py-3 px-4 text-left">CPF</th>
+              <th class="py-3 px-4 text-left">Telefone</th>
+              <th class="py-3 px-4 text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaUsuarios" class="divide-y divide-gray-200">
+            <!-- Dados gerados pelo JS -->
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL (FORMULÁRIO) -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-lg">
+      <h2 id="modalTitulo" class="text-xl font-bold text-blue-800 mb-4"></h2>
+      <form id="formModal" class="space-y-4">
+        <!-- Campos gerados pelo JS -->
+      </form>
+      <div class="flex justify-end mt-6">
+        <button onclick="fecharModal()"
+          class="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 mr-2">Cancelar</button>
+        <button onclick="salvar()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          Salvar
+        </button>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
