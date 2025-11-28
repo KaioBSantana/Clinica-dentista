@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica Confidente</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="bg-white text-gray-800 font-[Questrial]">
+  <body class="bg-white text-gray-800">
+
+
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white shadow-lg">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+       
+        <a class="text-xl font-semibold tracking-wide" href="#Home">🦷 Clínica Confidente</a>
+       
+         <div class="hidden md:flex items-center space-x-6">
+          <a href="#sobre" class="hover:text-blue-200 transition">Sobre</a>
+          <a href="#especialidades" class="hover:text-blue-200 transition">Especialidades</a>
+
+
+          <form class="flex" role="search">
+            <input class="form-control text-gray-900 rounded-l-full py-2 px-4" type="search" placeholder="Buscar..." aria-label="Buscar">
+            <button class="bg-white text-blue-800 rounded-r-full px-3 hover:bg-blue-100 transition" type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              </svg>
+            </button>
+          </form>
+
+
+          <button id="openLoginModal" class="bg-white text-blue-800 font-semibold px-4 py-2 rounded-full shadow hover:bg-blue-100 transition">
+            Login
+          </button>
+        </div>
+
+
+        <div class="md:hidden">
+          <button id="mobileMenuButton" class="text-white p-2 rounded-md hover:bg-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+
+
+    <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-4">
+      <a href="#sobre" class="block hover:text-blue-200 transition">Sobre</a>
+      <a href="#especialidades" class="block hover:text-blue-200 transition">Especialidades</a>
+
+
+
+      <form class="flex" role="search">
+        <input class="form-control text-gray-900 rounded-l-full py-2 px-4 w-full" type="search" placeholder="Buscar..." aria-label="Buscar">
+        <button class="bg-white text-blue-800 rounded-r-full px-3 hover:bg-blue-100 transition" type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+        </button>
+      </form>
+    
+      <button id="openLoginModalMobile" class="w-full bg-white text-blue-800 font-semibold px-4 py-2 rounded-full shadow hover:bg-blue-100 transition">
+        Login
+      </button>
+    </div> 
+    
+  </nav>
+  
+
+
+  <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+   
+    <div class="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 text-white w-full max-w-md p-8 rounded-xl shadow-2xl m-4">
+     
+      <button id="closeLoginModal" class="absolute top-4 right-4 text-white/70 hover:text-white transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+
+      <div id="loginForm">
+        <h2 class="text-3xl font-semibold text-center mb-6">Login</h2>
+        <form class_="space-y-4">
+          <div>
+            <label for="loginEmail" class="block mb-2 text-sm">Email</label>
+            <input type="email" id="loginEmail" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="seuemail@dominio.com">
+          </div>
+          <div class="mt-4">
+            <label for="loginSenha" class="block mb-2 text-sm">Senha</label>
+            <input type="password" id="loginSenha" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full bg-white text-blue-800 font-semibold px-4 py-2 mt-6 rounded-full shadow hover:bg-blue-100 transition">
+            Entrar
+          </button>
+        </form>
+        <p class="text-center text-sm mt-6">
+          Não tem uma conta?
+          <button id="showRegisterForm" class="font-semibold text-blue-200 hover:underline">
+            Registre-se
+          </button>
+        </p>
+      </div>
+
+
+      <div id="registerForm" class="hidden">
+        <h2 class="text-3xl font-semibold text-center mb-6">Registre-se</h2>
+        <form id="registrationForm" class="space-y-4">
+          <div>
+            <label for="regNome" class="block mb-2 text-sm">Nome Completo</label>
+            <input type="text" id="regNome" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+          <div>
+            <label for="regEmail" class="block mb-2 text-sm">Email</label>
+            <input type="email" id="regEmail" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+          <div>
+            <label for="regCpf" class="block mb-2 text-sm">CPF</label>
+            <input type="text" id="regCpf" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+           <div>
+            <label for="regTelefone" class="block mb-2 text-sm">Telefone</label>
+            <input type="tel" id="regTelefone" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+          <div>
+            <label for="regPassword" class="block mb-2 text-sm">Senha</a:label>
+            <input type="password" id="regPassword" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+          <div>
+            <label for="regPasswordConfirm" class="block mb-2 text-sm">Digite a Senha Novamente</label>
+            <input type="password" id="regPasswordConfirm" class="w-full px-4 py-2 rounded-md bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          </div>
+         
+          <p id="passwordError" class="text-red-400 text-sm hidden">As senhas não coincidem!</p>
+         
+          <button type="submit" class="w-full bg-white text-blue-800 font-semibold px-4 py-2 mt-6 rounded-full shadow hover:bg-blue-100 transition">
+            Criar Conta
+          </button>
+        </form>
+        <p class="text-center text-sm mt-6">
+          Já tem uma conta?
+          <button id="showLoginForm" class="font-semibold text-blue-200 hover:underline">
+            Faça Login
+          </button>
+        </p>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+  <divass="h-20"></div>
+
+
+
+<!-- Botão Flutuante de Agendamento -->
+<div id="btn-agendar-flutuante" class="fixed bottom-28 right-6 bg-blue-700 text-white px-4 py-3 rounded-full shadow-xl cursor-pointer hover:bg-blue-800 transition z-50">
+  Agendar
+</div>
+<button id="btn-agendar" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+  Agendar consulta
+</button>
+
+<!-- MODAL -->
+<div id="modal-agendar" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-lg w-[90%] max-w-xl p-8 relative">
+
+    <!-- FECHAR -->
+    <button id="close-modal" class="absolute right-4 top-4 text-gray-500 hover:text-red-500 text-xl">
+      ✕
+    </button>
+
+    <h2 class="text-center text-2xl font-semibold text-blue-600 mb-6">Agendamento</h2>
+
+    <form id="form-agendamento" class="space-y-4">
+
+      <div>
+        <label class="font-semibold">Nome</label>
+        <input id="nome" type="text" required class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-300" placeholder="Seu nome">
+      </div>
+
+      <div>
+        <label class="font-semibold">Data</label>
+        <input id="data" type="date" required class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-300">
+      </div>
+
+      <div>
+        <label class="font-semibold">Hora</label>
+        <input id="hora" type="time" required class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-300">
+      </div>
+
+      <div>
+        <label class="font-semibold">Procedimento</label>
+        <select id="procedimento" required class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-300">
+          <option value="">Selecione...</option>
+          <option>Odontologia</option>
+          <option>Limpeza</option>
+          <option>Clareamento</option>
+          <option>Ortodontia</option>
+        </select>
+      </div>
+
+      <div class="flex justify-between gap-4 pt-4">
+        <button type="button" id="btn-cancelar" class="w-1/2 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 transition">
+          Cancelar
+        </button>
+
+        <button type="submit" class="w-1/2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+          Enviar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+ 
+  <div class="relative w-full h-[600px] flex justify-center items-center" id="home">
+    <img src="https://blog.suryadental.com.br/wp-content/uploads/2014/12/cirurgiaodentista.jpg" alt="Dentista"
+      class="w-full h-full object-cover brightness-75">
+    <div class="absolute text-white text-3xl md:text-4xl font-bold text-center px-6 drop-shadow-lg">
+      DENTISTA ESPECIALIZADO NA ESTRADA DE INHOAÍBA
+    </div>
+  </div>
+  <!-- SOBRE -->
+  <section id="sobre" class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-semibold text-blue-900 mb-8 text-center">Sobre a Clínica</h2>
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <img src="https://lh3.googleusercontent.com/p/AF1QipO9tHBr1OsJ1G2PkCJyf5mukYf5pjOLs2maVuHC=s680-w680-h510-rw" alt="Atendimento odontológico humanizado"
+           class="rounded-xl shadow-lg">
+      <div class="text-gray-700 leading-relaxed">
+        <p class="mb-4">
+          A <strong>Clínica Confidente</strong> alia conhecimento científico, estrutura acolhedora e tecnologia de ponta para oferecer uma experiência completa em saúde bucal.
+        </p>
+        <p class="mb-4">
+          Nosso cuidado é individualizado: avaliamos necessidades, expectativas e rotina para indicar o melhor plano terapêutico. O objetivo é simples — saúde, funcionalidade e estética em equilíbrio.
+        </p>
+        <ul class="grid sm:grid-cols-2 gap-3 mt-4">
+          <li class="flex items-start gap-2"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600"></span> Atendimento humanizado</li>
+          <li class="flex items-start gap-2"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600"></span> Equipamentos modernos</li>
+          <li class="flex items-start gap-2"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600"></span> Planejamento digital</li>
+          <li class="flex items-start gap-2"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-blue-600"></span> Resultados naturais</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="bg-gray-50 py-16">
+  <h2 class="text-3xl font-bold text-center text-blue-800 mb-10">O que nossos pacientes dizem</h2>
+  
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div class="bg-white shadow-lg rounded-2xl p-6 text-center">
+      <p class="text-gray-600 italic">"Fui muito bem atendida! O consultório é impecável e os profissionais são maravilhosos."</p>
+      <h3 class="mt-4 font-semibold text-blue-700">— Maria S.</h3>
+    </div>
+
+    <div class="bg-white shadow-lg rounded-2xl p-6 text-center">
+      <p class="text-gray-600 italic">"Excelente atendimento, recomendo muito a Clínica Confidente!"</p>
+      <h3 class="mt-4 font-semibold text-blue-700">— João P.</h3>
+    </div>
+
+    <div class="bg-white shadow-lg rounded-2xl p-6 text-center">
+      <p class="text-gray-600 italic">"Equipe super atenciosa e profissional. Voltarei sempre!"</p>
+      <h3 class="mt-4 font-semibold text-blue-700">— Ana C.</h3>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="especialidades bg-blue-50 py-16 px-6 rounded-xl shadow-inner" id="especialidades">
+    <h3 class="text-3xl font-semibold text-blue-800 mb-10 text-center">Especialidades</h3>
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+        <img src="https://s2-g1.glbimg.com/-1txzzZuWKv20lq-GRL2jqPwovI=/0x0:5837x3892/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/d/y/sEyQkPQbiMOWCynKtyxw/low-angle-view-of-black-dentist-checking-patients-2023-11-27-05-31-49-utc.jpg"
+             alt="Profissional realizando procedimento odontológico" class="rounded-xl shadow-md">
+        <div class="text-gray-700 leading-relaxed">
+          <p class="mb-4">Oferecemos <strong> odontologia</strong>, <strong>ortodontia</strong>, <strong>implantes</strong>, <strong>estética</strong>, <strong>odontopediatria</strong> e <strong>periodontia ..... entre outros </strong>.</p>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">odontologia </h3>
+              <p class="text-sm text-gray-600 mt-1">Área da saúde que estuda, diagnostica, previne e trata doenças relacionadas aos dentes, gengivas, boca, ossos da face e pescoço.</p>
+            </div>
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">Ortodontia</h3>
+              <p class="text-sm text-gray-600 mt-1"> Especialidade da odontologia que corrige o alinhamento e o posicionamento dos dentes e ossos maxilares. </p>
+            </div>
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">endodontia</h3>
+              <p class="text-sm text-gray-600 mt-1"> Especialidade da odontologia que trata do interior do dente, focando na polpa, nervos e vasos sanguíneos.</p>
+            </div>
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">dentítica/Estética</h3>
+              <p class="text-sm text-gray-600 mt-1"> Especialidade da odontologia que se dedica a restaurar e melhorar a função e a estética dos dentes, por meio de procedimentos preventivos, educativos e terapêuticos.</p>
+            </div>
+
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">implantodontia</h3>
+              <p class="text-sm text-gray-600 mt-1"> Especialidade da odontologia que se dedica à reabilitação de um ou mais dentes perdidos através da instalação de implantes dentários.</p>
+            </div>
+
+            <div class="rounded-xl bg-white p-4 shadow border border-blue-100">
+              <h3 class="font-semibold text-blue-800">periodontia </h3>
+              <p class="text-sm text-gray-600 mt-1"> Especialidade da odontologia que cuida das doenças dos tecidos que dão suporte aos dentes, como gengiva, osso alveolar e ligamento periodontal. </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    class="saude-dental flex flex-col md:flex-row items-center justify-center gap-10 bg-white py-16 px-6 rounded-xl shadow-md max-w-5xl mx-auto mt-10">
+    <div class="imagem-dente">
+      <img
+        src="https://img.freepik.com/vetores-gratis/logotipo-de-dente-preto_78370-4790.jpg?semt=ais_hybrid&w=740&q=80" class="w-56 hover:scale-105 transition">
+    </div>
+    <div class="texto-dente max-w-lg">
+      <h2 class="text-2xl font-bold text-blue-700 mb-4">
+      Escove os dentes com regularidade
+      </h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
+     A escovação é a base da saúde bucal — mas não basta escovar, é preciso fazer da maneira certa. O ideal é escovar os dentes três vezes ao dia, principalmente após as refeições e antes de dormir.
+Use uma escova de cerdas macias, com cabeça pequena e movimentos circulares suaves, limpando todas as faces dos dentes e também a língua.
+Evite aplicar força excessiva, pois isso pode desgastar o esmalte e causar retração gengival. Um creme dental com flúor ajuda a fortalecer os dentes e prevenir cáries, mantendo o sorriso saudável por muito mais tempo.
+      </p>
+    </div>
+   
+  </section>
+    <section
+    class="saude-dental flex flex-col md:flex-row items-center justify-center gap-10 bg-white py-16 px-6 rounded-xl shadow-md max-w-5xl mx-auto mt-10">
+    <div class="imagem-dente">
+      <img
+        src="https://img.freepik.com/vetores-premium/dente-real-de-desenho-animado-com-varinha-de-coracao-e-ilustracao-de-coroa_770200-3130.jpg"
+        alt="Ícone de dente" class="w-56 hover:scale-105 transition">
+    </div>
+    <div class="texto-dente max-w-lg">
+      <h2 class="text-2xl font-bold text-blue-700 mb-4">Dicas de como cuidar dos dentes </h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
+        Cuidar dos dentes é essencial para manter um sorriso bonito e uma boa saúde bucal. A escovação deve ser feita após as principais refeições, utilizando escova de cerdas macias e creme dental com flúor.
+       
+        O uso diário do fio dental é fundamental para remover resíduos e placa bacteriana que a escova não alcança, prevenindo cáries e inflamações na gengiva.
+
+
+Uma alimentação equilibrada também contribui para a saúde dos dentes. Evite o consumo excessivo de doces, refrigerantes e alimentos muito ácidos, que podem desgastar o esmalte dental. Prefira alimentos ricos em cálcio, como leite, queijos e vegetais verdes, que fortalecem dentes e ossos.
+
+
+      </p>
+    </div>
+  </section>
+
+  
+  <section
+    class="saude-dental flex flex-col md:flex-row items-center justify-center gap-10 bg-white py-16 px-6 rounded-xl shadow-md max-w-5xl mx-auto mt-10">
+    <div class="imagem-dente">
+      <img
+        src="https://img.freepik.com/vetores-premium/dente-de-desenho-animado-dando-polegar-para-cima-e-olho-piscando-vetor-isolado-em-fundo-branco-limpo_851674-43599.jpg"
+        alt="Ícone de dente" class="w-56 hover:scale-105 transition">
+    </div>
+    <div class="texto-dente max-w-lg">
+      <h2 class="text-2xl font-bold text-blue-700 mb-4">
+      a importancia da saude dental
+      </h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
+     A saúde dental é fundamental para o bem-estar geral do corpo e vai muito além da aparência do sorriso. Manter dentes e gengivas saudáveis contribui para uma boa mastigação, uma fala adequada e até para a autoconfiança. Além disso, problemas bucais como cáries, gengivites e infecções podem afetar outras partes do organismo, aumentando o risco de doenças cardíacas, diabetes e complicações respiratórias.
+
+A higiene bucal diária — escovação correta, uso do fio dental e visitas regulares ao dentista — é essencial para prevenir o acúmulo de placa bacteriana e evitar problemas mais sérios. Uma boa saúde dental também melhora a digestão, já que os alimentos são melhor triturados e processados.
+      </p>
+    </div>
+   
+  </section>
+
+    <section
+    class="saude-dental flex flex-col md:flex-row items-center justify-center gap-10 bg-white py-16 px-6 rounded-xl shadow-md max-w-5xl mx-auto mt-10">
+    <div class="imagem-dente">
+      <img
+        src="https://static.vecteezy.com/ti/vetor-gratis/p1/47813633-fofa-dente-fada-voo-desenho-animado-personagem-educacao-humano-orgao-dental-cuidado-conceito-projeto-kawaii-objeto-ilustracao-isolado-branco-fundo-vetor.jpg"
+        alt="Ícone de dente" class="w-56 hover:scale-105 transition">
+    </div>
+    <div class="texto-dente max-w-lg">
+      <h2 class="text-2xl font-bold text-blue-700 mb-4">
+          A Influência do Sorriso na Autoestima
+      </h2>
+      <p class="text-gray-700 text-justify leading-relaxed">
+
+
+O sorriso é um dos primeiros aspectos notados em uma pessoa e tem grande impacto na autoestima e nas relações sociais. Dentes saudáveis e bem-cuidados transmitem confiança, simpatia e bem-estar, refletindo diretamente na forma como nos sentimos e somos percebidos pelos outros. Quando alguém se sente inseguro com o próprio sorriso, pode acabar evitando falar, rir ou se expor em público, o que afeta a autoconfiança e até oportunidades profissionais.
+
+Manter uma boa higiene bucal, realizar limpezas regulares e buscar tratamentos estéticos, quando necessários, são atitudes que vão além da estética — representam cuidado consigo mesmo. Um sorriso bonito é um cartão de visita poderoso e pode transformar não só a aparência, mas também a forma como a pessoa se relaciona com o mundo ao seu redor.
+      </p>
+    </div>
+   
+  </section>
+
+
+
+  <section class="avaliacoes text-center py-16 bg-blue-50 mt-10">
+    <h2 class="text-3xl font-bold text-blue-800 mb-4">Com a palavra os nossos queridos pacientes!</h2>
+    <p class="text-gray-600 mb-10">Veja o que dizem sobre a Clínica Confidente:</p>
+    <a id="btn-avaliar-google" href="https://search.google.com/local/writereview?placeid=ChIJDwFo9GflmwARUNRAUTRvToU"
+      target="_blank" rel="noopener noreferrer"
+      class="inline-block bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded-full shadow transition">
+      ★ Avaliar no Google
+     
+    </a>
+  </section>
+
+
+  <section class="mapa bg-white py-16 text-center border-t border-blue-100">
+    <h2 class="text-3xl font-bold text-blue-800 mb-4">Venha nos visitar!</h2>
+    <p class="text-gray-600 mb-6">Estamos prontos para te receber com o melhor atendimento odontológico.</p>
+    <div class="mapa-container max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.2900079462793!2d-43.598197125448536!3d-22.902671737722486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9be567f468010f%3A0x854e6f345140d450!2sCl%C3%ADnica%20Confidente%20%7C%20Dentista%20em%20Inhoa%C3%ADba!5e0!3m2!1spt-BR!2sbr!4v1761674147569!5m2!1spt-BR!2sbr"
+        width="1200" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+
+ <section class="py-16 bg-white">
+  <h2 class="text-3xl font-bold text-center text-blue-800 mb-10">Perguntas Frequentes</h2>
+
+  <div class="max-w-3xl mx-auto space-y-4 px-6">
+    <details class="bg-gray-50 p-4 rounded-lg shadow">
+      <summary class="font-semibold text-blue-700 cursor-pointer">Quais convênios a clínica aceita?</summary>
+      <p class="mt-2 text-gray-600">Aceitamos planos odontológicos e também atendemos particular. Entre em contato para confirmar o seu convênio.</p>
+    </details>
+
+    <details class="bg-gray-50 p-4 rounded-lg shadow">
+      <summary class="font-semibold text-blue-700 cursor-pointer">Vocês fazem clareamento dental?</summary>
+      <p class="mt-2 text-gray-600">Sim! Oferecemos clareamento a laser e caseiro, com avaliação prévia para indicar o melhor método para você. garantindo sempre o melhor atendimento.</p>
+    </details>
+
+    <details class="bg-gray-50 p-4 rounded-lg shadow">
+      <summary class="font-semibold text-blue-700 cursor-pointer">Como agendar um atendimento?</summary>
+      <p class="mt-2 text-gray-600">Você pode agendar pelo formulário acima, WhatsApp ou diretamente na clínica.</p>
+    </details>
+  </div>
+</section>
+
+
+  <footer class="footer bg-blue-900 text-white py-10 mt-10">
+    <div class="footer-container max-w-6xl mx-auto flex flex-wrap justify-between gap-10 px-6">
+      <div class="footer-col">
+        <h4 class="text-lg font-semibold mb-3 border-b border-blue-300 inline-block pb-1">Menu</h4>
+        <ul class="space-y-2">
+          <li><a href="#home" class="hover:text-blue-200 transition">Home</a></li>
+          <li><a href="#sobre" class="hover:text-blue-200 transition">Sobre Nós</a></li>
+          <li><a href="#especialidades" class="hover:text-blue-200 transition">Especialidades</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="text-lg font-semibold mb-3 border-b border-blue-300 inline-block pb-1">Contatos</h4>
+        <p>📱 (21) 96448-0906</p>
+        <p>📧 xxxxxxx@xxxxxxxxxx</p>
+        <p>📍 Estr. de Inhoaíba, 40 - Rio de Janeiro</p>
+      </div>
+    </div>
+    <div class="footer-bottom text-center mt-10 text-sm opacity-75">
+      © 2025 Clínica Odontológica Confidente - Todos os direitos reservados.
+    </div>
+  </footer>
+
+  
+
+
+  <a href="https://wa.me/5521964480906"
+    class="whatsapp-button fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-full shadow-lg flex items-center space-x-2 transition"
+    target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-6">
+    <span>Agende sua Consulta</span>
+  </a>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./script.js"></script>
+
+
+
+</body>
+
+
+</html>
+
